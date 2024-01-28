@@ -1,5 +1,5 @@
 # description
-It's the latex files that give my friends.
+It's the latex files for my friends.
 # notations
 *def.* definition<br>
 *thm.* theorem<br>
