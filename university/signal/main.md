@@ -1,5 +1,5 @@
 # Signal and system
-author CHEN DING-SHAN
+author:CHEN DING-SHAN 陳定善
 # content
 *def.* **Signal**<br>
 $x$ is a Signal $\iff x \in A^B$ where $A, B$ is sets, or it can be represented by $x$ is a function, $f:B \to A$.<br>
