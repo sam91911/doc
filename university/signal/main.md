@@ -12,4 +12,4 @@
 若 $x$ 為離散時間信號，則代表 $x \in A^Z$ ，其中 $A$ 是集合， $Z$ 是integer field(整數域)。  
 *運算* **信號**的**addition加法**  
 *前提* 兩個訊號$f,g$的定義域與對應域相同，這裡將定義域稱為 $A$ ，對應域稱為 $B$ ，且 $B$ 擁有加法運算。  
-$f,g$ 加法後得到 $f+g$ ，而 $f+g$ 是由等式 $\left(\forall x \in A\right)\left[\left(f+g\right)\left(x\right) = f\left(x\right)+g\left(\right)\right]$ 得到的。  
+$f,g$ 加法後得到 $f+g$ ，而 $f+g$ 是由等式 $\left(\forall x \in A\right)\left[\left(f+g\right)\left(x\right) = f\left(x\right)+g\left(x\right)\right]$ 得到的。  
