@@ -1,9 +1,9 @@
 # description
 It's the latex files that give my friends.
 # notations
-*def.* definition
-*thm.* theorem
-*anno.* annotation
-*prer.* prerequirement
-*oper.* operation define
+*def.* definition<br>
+*thm.* theorem<br>
+*anno.* annotation<br>
+*prer.* prerequirement<br>
+*oper.* operation define<br>
 *prop.* properties define
