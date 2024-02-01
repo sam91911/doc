@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{circuitikz}
+\usepackage{multirow}
 \usepackage[margin=2.0cm]{geometry}
 \title{Logic Circuit}
 \author{CHEN DING-SHAN}
@@ -16,4 +18,45 @@
 \begin{document}
 \maketitle
 \noindent
+There are two types of basic signal in Logic Circuit: $\textbf{1}$ and $\textbf{0}$ and three types of basic circuit: and, or, not. The input quantities of and, or, not is 2, 2, 1, respectively.\\
+The draw of the three types of circuit is showing below:\\
+\begin{center}
+\begin{tabular}{|c|c|c|}
+	\hline
+	and & or & not\\
+	\hline
+\begin{circuitikz} \draw
+	(0,0) node[and port] (and) {};
+\end{circuitikz}
+	&
+\begin{circuitikz} \draw
+	(0,0) node[or port] (or) {};
+\end{circuitikz}
+	&
+\begin{circuitikz} \draw
+	(0,0) node[not port] (not) {};
+\end{circuitikz}\\
+	\hline
+\end{tabular}
+\end{center}
+Below is the inout table of the three types of circuit:\\
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+	\hline
+	\multicolumn{3}{|c|}{and} & \multicolumn{3}{|c|}{or} & \multicolumn{2}{|c|}{not}\\
+	\hline
+	\multicolumn{2}{|c|}{input} & output & \multicolumn{2}{|c|}{input} & output & input & output\\
+	\hline
+	0 & 0 & 0 & 0 & 0 & 0 & \multirow{2}{*}{0} & \multirow{2}{*}{1} \\
+	\cline{1-6}
+	0 & 1 & 0 & 0 & 1 & 1 & & \\
+	\hline
+	1 & 0 & 0 & 1 & 0 & 1 & \multirow{2}{*}{1} & \multirow{2}{*}{0} \\
+	\cline{1-6}
+	1 & 1 & 1 & 1 & 1 & 1 & & \\
+	\hline
+\end{tabular}
+\end{center}
+To express a circuit can use several ways. Here, four ways are introduced, which are Drawing, Equation, Verilog, VHDL.\\
+
 \end{document}
