@@ -18,42 +18,67 @@
 \newcommand{\prop}{性質：}
 \newcommand{\pf}{證明：}
 \newcommand{\abs}[1]{{\left|#1\right|}}
+\newcommand{\pftab}[1]{
+	\begin{tabular}{ >{\raggedright\arraybackslash}p{0.1\textwidth}  >{\centering\arraybackslash}p{0.7\textwidth} >{\raggedleft\arraybackslash}p{0.2\textwidth}}
+		#1
+	\end{tabular}
+}
 \begin{document}
 \maketitle
 \section{logic 邏輯}
 這一章只會簡單介紹會用到的邏輯符號及基本的一些公理(axiom)與定理(theorem)。\\
 通常上，「對」會表示為$T$或是$\top$，而「錯」會表達為$F$或是$\bot$。在這篇文章當中，會以$\top$及$\bot$表達。\\
 首先，「公理」是對該話題的預先假設，而「定理」是從假設中推論出來的，而定理會附帶證明。通常，推論會寫成$B,C\vdash D$，意味著以$B, C$為前提推論出$D$。\\
+若是以$\vdash B$表達，則代表除了此定理或公理外，不需要其他前提，就可以推導出$B$。\\
 至於推論與假設代表什麼，我還不知道該如何解釋。\\
 \axm
 \begin{equation}\label{logic:A1}
-	B \to \sd{C \to B}
+	\vdash B \to \sd{C \to B}
 \end{equation}
 \axm
 \begin{equation}\label{logic:A2}
-	\sd{B \to \sd{C \to D}} \to \sd{\sd{B \to C} \to \sd{B \to D}}
+	\vdash \sd{B \to \sd{C \to D}} \to \sd{\sd{B \to C} \to \sd{B \to D}}
 \end{equation}
 \axm
 \begin{equation}\label{logic:A3}
-	\sd{\sd{\lnot B} \to \sd{\lnot C}} \to \sd{\sd{\sd{\lnot B}\to C}\to B}
+	\vdash \sd{\sd{\lnot B} \to \sd{\lnot C}} \to \sd{\sd{\sd{\lnot B}\to C}\to B}
 \end{equation}
 \axm
 \begin{equation}\label{logic:MP}\tag{MP}
 	\sd{B \to C}, B \vdash C
 \end{equation}
-以上四個公理中，$B,C,D$是任意敘述。以上公理，可以理解成是在對$\to,\lnot,\vdash$做定義，只要符合以上公理形式的概念，都是可以使用的。\\
+以上四個公理中，$B,C,D$是任意敘述。以上公理，可以理解成是在對$\to,\lnot$做定義，只要符合以上公理形式的概念，都是可以使用的。\\
+在定理的證明當中，我會以以下格式書寫：\\
+\pftab{
+條目&內容&前提\\
+條目&內容&前提\\
+條目&內容&前提\\
+…&…&…\\
+}
 \thm
 \begin{equation}\label{logic:to_self}
-	B \to B
+	\vdash B \to B
 \end{equation}
 \pf\\
-\begin{tabular}{ >{\raggedright\arraybackslash}p{0.1\textwidth}  >{\centering\arraybackslash}p{0.7\textwidth} >{\raggedleft\arraybackslash}p{0.2\textwidth}}
+\pftab{
 $C_{1}:$&$\sd{B \to \sd{\sd{B \to B}\to B}} \to \sd{\sd{B \to \sd{B \to B}} \to \sd{B \to B}}$&$(\ref{logic:A2})$\\
 $C_{2}:$&$B \to \sd{\sd{B \to B} \to B}$&$(\ref{logic:A1})$\\
 $C_{3}:$&$B \to \sd{B \to B}$&$(\ref{logic:A1})$\\
 $C_{4}:$&$\sd{B \to \sd{B \to B}} \to \sd{B \to B}$&$(C_{1}, C_{2}, \ref{logic:MP})$\\
 $C_{5}:$&$B \to B$&$(C_{3},C_{4},\ref{logic:MP})$\\
-\end{tabular}
+}
 \thm
-
+\begin{equation}\label{logic:D1}
+	\sd{B \to C}, \sd{C \to D} \vdash \sd{B \to D}
+\end{equation}
+\pf\\
+\pftab{
+$C_{1}:$&$\sd{B \to C}$&$(Hyp)$\\
+$C_{2}:$&$\sd{C \to D}$&$(Hyp)$\\
+$C_{3}:$&$\sd{C \to D} \to \sd{ B \to \sd{C \to D}}$&$(\ref{logic:A1})$\\
+$C_{4}:$&$\sd{B \to \sd{C \to D}}$&$(C_{2}, C_{3}, \ref{logic:MP})$\\
+$C_{5}:$&$\sd{B \to \sd{C \to D}} \to \sd{\sd{B \to C} \to \sd{B \to D}}$&$(\ref{logic:A2})$\\
+$C_{6}:$&$\sd{B \to C} \to \sd{B \to D}$&$(C_{4}, C_{5}\ref{logic:MP})$\\
+$C_{7}:$&$\sd{B \to D}$&$(C_{1}, C_{6}, \ref{logic:MP})$\\
+}
 \end{document}
