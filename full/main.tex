@@ -1,26 +1,59 @@
 \documentclass{article}
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{array}
 \usepackage[margin=2.0cm]{geometry}
 \usepackage{xeCJK}
-\usepackage{indentfirst}
 \setCJKmainfont{AR PL UKai TW}
-\title{從入門到入土}
+\title{筆記}
 \author{陳定善}
 \date{}
 \newcommand{\sd}[1]{{\left(#1\right)}}
-\newcommand{\df}[1]{\emph{定義} \textbf{#1}}
-\newcommand{\thm}[1]{\emph{定理} \textbf{#1}}
-\newcommand{\anno}[1]{\emph{註} \emph{#1}}
+\newcommand{\df}{定義：}
+\newcommand{\thm}{定理：}
+\newcommand{\axm}{公理：}
+\newcommand{\anno}{註：}
 \newcommand{\md}[1]{{\left[#1\right]}}
-\newcommand{\prer}[1]{\emph{前提} #1}
-\newcommand{\prop}[2]{\emph{性質} \textbf{#1} of \textbf{#2}}
+\newcommand{\prer}{前提：}
+\newcommand{\prop}{性質：}
+\newcommand{\pf}{證明：}
 \newcommand{\abs}[1]{{\left|#1\right|}}
 \begin{document}
 \maketitle
-\section{前言}
-語言是能幫助我們思考與溝通的工具，學習新的語言能幫我們有新的思考模式及溝通模式，所以在這篇文章中，會介紹不同語言中的概念與溝通上的習慣。當然，我只能淺淺的談，我也不是專家，所以如果有錯歡迎指正。\par
-首先我想介紹的，是一門嘗試將表達的詞及概念做到極簡化的語言——邏輯(logic)。
-\section{邏輯}
+\section{logic 邏輯}
+這一章只會簡單介紹會用到的邏輯符號及基本的一些公理(axiom)與定理(theorem)。\\
+通常上，「對」會表示為$T$或是$\top$，而「錯」會表達為$F$或是$\bot$。在這篇文章當中，會以$\top$及$\bot$表達。\\
+首先，「公理」是對該話題的預先假設，而「定理」是從假設中推論出來的，而定理會附帶證明。通常，推論會寫成$B,C\vdash D$，意味著以$B, C$為前提推論出$D$。\\
+至於推論與假設代表什麼，我還不知道該如何解釋。\\
+\axm
+\begin{equation}\label{logic:A1}
+	B \to \sd{C \to B}
+\end{equation}
+\axm
+\begin{equation}\label{logic:A2}
+	\sd{B \to \sd{C \to D}} \to \sd{\sd{B \to C} \to \sd{B \to D}}
+\end{equation}
+\axm
+\begin{equation}\label{logic:A3}
+	\sd{\sd{\lnot B} \to \sd{\lnot C}} \to \sd{\sd{\sd{\lnot B}\to C}\to B}
+\end{equation}
+\axm
+\begin{equation}\label{logic:MP}\tag{MP}
+	\sd{B \to C}, B \vdash C
+\end{equation}
+以上四個公理中，$B,C,D$是任意敘述。以上公理，可以理解成是在對$\to,\lnot,\vdash$做定義，只要符合以上公理形式的概念，都是可以使用的。\\
+\thm
+\begin{equation}\label{logic:to_self}
+	B \to B
+\end{equation}
+\pf\\
+\begin{tabular}{ >{\raggedright\arraybackslash}p{0.1\textwidth}  >{\centering\arraybackslash}p{0.7\textwidth} >{\raggedleft\arraybackslash}p{0.2\textwidth}}
+$C_{1}:$&$\sd{B \to \sd{\sd{B \to B}\to B}} \to \sd{\sd{B \to \sd{B \to B}} \to \sd{B \to B}}$&$(\ref{logic:A2})$\\
+$C_{2}:$&$B \to \sd{\sd{B \to B} \to B}$&$(\ref{logic:A1})$\\
+$C_{3}:$&$B \to \sd{B \to B}$&$(\ref{logic:A1})$\\
+$C_{4}:$&$\sd{B \to \sd{B \to B}} \to \sd{B \to B}$&$(C_{1}, C_{2}, \ref{logic:MP})$\\
+$C_{5}:$&$B \to B$&$(C_{3},C_{4},\ref{logic:MP})$\\
+\end{tabular}
+\thm
 
 \end{document}
