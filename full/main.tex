@@ -19,7 +19,7 @@
 \newcommand{\pf}{證明：}
 \newcommand{\abs}[1]{{\left|#1\right|}}
 \newcommand{\pftab}[1]{
-	\begin{tabular}{ >{\raggedright\arraybackslash}p{0.1\textwidth}  >{\centering\arraybackslash}p{0.7\textwidth} >{\raggedleft\arraybackslash(}p{0.2\textwidth}<{)}}
+	\begin{tabular}{ >{\raggedright\arraybackslash}p{0.1\textwidth}<{}  >{\centering\arraybackslash}p{0.7\textwidth} >{\raggedleft\arraybackslash(}p{0.2\textwidth}<{)}}
 		#1
 	\end{tabular}
 }
@@ -28,26 +28,26 @@
 \section{logic 邏輯}
 這一章只會簡單介紹會用到的邏輯符號及基本的一些公理(axiom)與定理(theorem)。\\
 通常上，「對」會表示為$T$或是$\top$，而「錯」會表達為$F$或是$\bot$。在這篇文章當中，會以$\top$及$\bot$表達。\\
-首先，「公理」是對該話題的預先假設，而「定理」是從假設中推論出來的，而定理會附帶證明。通常，推論會寫成$B,C\vdash D$，意味著以$B, C$為前提推論出$D$。\\
-若是以$\vdash B$表達，則代表除了此定理或公理外，不需要其他前提，就可以推導出$B$。\\
+首先，「公理」是對該話題的預先假設，而「定理」是從假設中推論出來的，而定理會附帶證明。通常，推論會寫成$A,B\vdash C$，意味著以$A, B$為前提推論出$C$。\\
+若是以$\vdash A$表達，則代表除了此定理或公理外，不需要其他前提，就可以推導出$A$。\\
 至於推論與假設代表什麼，我還不知道該如何解釋。\\
 \axm
 \begin{equation}\label{logic:A1}
-	\vdash B \to \sd{C \to B}
+	\vdash A \to \sd{B \to A}
 \end{equation}
 \axm
 \begin{equation}\label{logic:A2}
-	\vdash \sd{B \to \sd{C \to D}} \to \sd{\sd{B \to C} \to \sd{B \to D}}
+	\vdash \sd{A \to \sd{B \to C}} \to \sd{\sd{A \to B} \to \sd{A \to C}}
 \end{equation}
 \axm
 \begin{equation}\label{logic:A3}
-	\vdash \sd{\sd{\lnot B} \to \sd{\lnot C}} \to \sd{\sd{\sd{\lnot B}\to C}\to B}
+	\vdash \sd{\sd{\lnot A} \to \sd{\lnot B}} \to \sd{B \to A}
 \end{equation}
 \axm
 \begin{equation}\label{logic:MP}\tag{MP}
-	\sd{B \to C}, B \vdash C
+	\sd{A \to B}, A \vdash B
 \end{equation}
-以上四個公理中，$B,C,D$是任意敘述。以上公理，可以理解成是在對$\to,\lnot$做定義，只要符合以上公理形式的概念，都是可以使用的。\\
+以上四個公理中，$A,B,C$是任意敘述。以上公理，可以理解成是在對$\to,\lnot$做定義，只要符合以上公理形式的概念，都是可以使用的。\\
 在定理的證明當中，我會以以下格式書寫：\\
 \pftab{
 條目&內容&前提\\
@@ -57,36 +57,76 @@
 }
 \thm
 \begin{equation}\label{logic:to_self}
-	\vdash B \to B
+	\vdash A \to A
 \end{equation}
 \pf\\
 \pftab{
-$C_{1}:$&$\sd{B \to \sd{\sd{B \to B}\to B}} \to \sd{\sd{B \to \sd{B \to B}} \to \sd{B \to B}}$&$(\ref{logic:A2})$\\
-$C_{2}:$&$B \to \sd{\sd{B \to B} \to B}$&$(\ref{logic:A1})$\\
-$C_{3}:$&$B \to \sd{B \to B}$&$(\ref{logic:A1})$\\
-$C_{4}:$&$\sd{B \to \sd{B \to B}} \to \sd{B \to B}$&$(C_{1}, C_{2}, \ref{logic:MP})$\\
-$C_{5}:$&$B \to B$&$(C_{3},C_{4},\ref{logic:MP})$\\
+1&$\sd{A \to \sd{\sd{A \to A}\to A}} \to \sd{\sd{A \to \sd{A \to A}} \to \sd{A \to A}}$&\ref{logic:A2}\\
+2&$A \to \sd{\sd{A \to A} \to A}$&\ref{logic:A1}\\
+3&$A \to \sd{A \to A}$&\ref{logic:A1}\\
+4&$\sd{A \to \sd{A \to A}} \to \sd{A \to A}$&1, 2, \ref{logic:MP}\\
+5&$A \to A$&3, 4, \ref{logic:MP}\\
 }
 \thm
 \begin{equation}\label{logic:D1}
-	\sd{B \to C}, \sd{C \to D} \vdash \sd{B \to D}
+	\sd{A \to B}, \sd{B \to C} \vdash \sd{A \to C}
 \end{equation}
 \pf\\
 \pftab{
-$C_{1}:$&$\sd{B \to C}$&$Hyp$\\
-$C_{2}:$&$\sd{C \to D}$&$Hyp$\\
-$C_{3}:$&$\sd{C \to D} \to \sd{ B \to \sd{C \to D}}$&$\ref{logic:A1}$\\
-$C_{4}:$&$\sd{B \to \sd{C \to D}}$&$C_{2}, C_{3}, \ref{logic:MP}$\\
-$C_{5}:$&$\sd{B \to \sd{C \to D}} \to \sd{\sd{B \to C} \to \sd{B \to D}}$&$\ref{logic:A2}$\\
-$C_{6}:$&$\sd{B \to C} \to \sd{B \to D}$&$C_{4}, C_{5}\ref{logic:MP}$\\
-$C_{7}:$&$\sd{B \to D}$&$C_{1}, C_{6}, \ref{logic:MP}$\\
+1&$\sd{A \to B}$&$Hyp$\\
+2&$\sd{B \to C}$&$Hyp$\\
+3&$\sd{B \to C} \to \sd{ A \to \sd{B \to C}}$&$\ref{logic:A1}$\\
+4&$\sd{A \to \sd{B \to C}}$&$C_{2}, C_{3}, \ref{logic:MP}$\\
+5&$\sd{A \to \sd{B \to C}} \to \sd{\sd{A \to B} \to \sd{A \to C}}$&$\ref{logic:A2}$\\
+6&$\sd{A \to B} \to \sd{A \to C}$&$C_{4}, C_{5}\ref{logic:MP}$\\
+7&$\sd{A \to C}$&$C_{1}, C_{6}, \ref{logic:MP}$\\
 }
 \thm
 \begin{equation}\label{logic:D2}
-	B \to \sd{C \to D}, C \vdash \sd{B \to D}
+	A \to \sd{B \to C}, B \vdash \sd{A \to C}
 \end{equation}
 \pf\\
 \pftab{
-$C_{1}$&$B \to \sd{C \to D}$&$Hyp$
+1&$A \to \sd{B \to C}$&$Hyp$\\
+2&$B$&$Hyp$\\
+3&$\sd{A \to \sd{B \to C}} \to \sd{\sd{A \to B} \to \sd{A \to C}}$&$\ref{logic:A2}$\\
+4&$\sd{A \to B} \to \sd{A \to C}$&$C_{1}, C_{3}, \ref{logic:MP}$\\
+5&$B \to \sd{A \to B}$&$\ref{logic:A1}$\\
+6&$A \to B$&$C_{2}, C_{5}, \ref{logic:MP}$\\
+7&$A \to C$&$C_{4}, C_{6}, \ref{logic:MP}$\\
+}
+\thm
+\begin{equation}\label{logic:DNe}
+	\vdash \sd{\lnot\lnot A} \to A
+\end{equation}
+\pf\\
+\pftab{
+1&$\sd{\lnot\lnot A} \to \sd{\sd{\lnot\lnot\lnot\lnot A} \to \sd{\lnot\lnot A}}$&$\ref{logic:A1}$\\
+2&$\sd{\sd{\lnot\lnot\lnot\lnot A} \to \sd{\lnot\lnot A}} \to \sd{\sd{\lnot A} \to \sd{\lnot\lnot\lnot A}}$&$\ref{logic:A3}$\\
+3&$\sd{\lnot\lnot A} \to \sd{\sd{\lnot A} \to \sd{\lnot\lnot\lnot A}}$&$C_{1}, C_{2}, \ref{logic:D1}$\\
+4&$\sd{\sd{\lnot A} \to \sd{\lnot\lnot\lnot A}} \to \sd{\sd{\lnot\lnot A} \to A}$&$\ref{logic:A3}$\\
+5&$\sd{\lnot\lnot A} \to \sd{\sd{\lnot\lnot A} \to A}$&$C_{3}, C_{4}, \ref{logic:D1}$\\
+6&$\sd{\sd{\lnot\lnot A} \to \sd{\sd{\lnot\lnot A} \to A}} \to \sd{\sd{\sd{\lnot\lnot A} \to \sd{\lnot\lnot A}} \to \sd{\sd{\lnot\lnot A} \to A}}$&$\ref{logic:A2}$\\
+7&$\sd{\sd{\lnot\lnot A} \to \sd{\lnot\lnot A}} \to \sd{\sd{\lnot\lnot A} \to A}$&$C_{5}, C_{6}, \ref{logic:MP}$\\
+8&$\sd{\lnot\lnot A} \to \sd{\lnot\lnot A}$&$\ref{logic:to_self}$\\
+9&$\sd{\lnot\lnot A} \to A$&$C_{7}, C_{8}, \ref{logic:MP}$\\
+}
+\thm
+\begin{equation}\label{logic:DNi}
+	\vdash A \to \sd{\lnot\lnot A}
+\end{equation}
+\pf\\
+\pftab{
+1&$\sd{\lnot\lnot\lnot A} \to \sd{\lnot A}$&$\ref{logic:DNe}$\\
+2&$\sd{\sd{\lnot\lnot\lnot A} \to \sd{\lnot A}} \to \sd{ A \to \sd{\lnot\lnot A}}$&$\ref{logic:A3}$\\
+3&$ A \to \sd{\lnot\lnot A}$&$C_{1}, C_{2}, \ref{logic:MP}$\\
+}
+\thm
+\begin{equation}\label{logic:T1}
+	\sd{\lnot A} \to \sd{\lnot B} \vdash B \to A
+\end{equation}
+\pf\\
+\pftab{
+1&$\sd{\lnot A} \to \sd{\lnot B}$&$Hyp$\\
 }
 \end{document}
