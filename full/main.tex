@@ -19,7 +19,7 @@
 \newcommand{\pf}{證明：}
 \newcommand{\abs}[1]{{\left|#1\right|}}
 \newcommand{\pftab}[1]{
-	\begin{tabular}{ >{\raggedright\arraybackslash}p{0.1\textwidth}  >{\centering\arraybackslash}p{0.7\textwidth} >{\raggedleft\arraybackslash}p{0.2\textwidth}}
+	\begin{tabular}{ >{\raggedright\arraybackslash}p{0.1\textwidth}  >{\centering\arraybackslash}p{0.7\textwidth} >{\raggedleft\arraybackslash(}p{0.2\textwidth}<{)}}
 		#1
 	\end{tabular}
 }
@@ -73,12 +73,20 @@ $C_{5}:$&$B \to B$&$(C_{3},C_{4},\ref{logic:MP})$\\
 \end{equation}
 \pf\\
 \pftab{
-$C_{1}:$&$\sd{B \to C}$&$(Hyp)$\\
-$C_{2}:$&$\sd{C \to D}$&$(Hyp)$\\
-$C_{3}:$&$\sd{C \to D} \to \sd{ B \to \sd{C \to D}}$&$(\ref{logic:A1})$\\
-$C_{4}:$&$\sd{B \to \sd{C \to D}}$&$(C_{2}, C_{3}, \ref{logic:MP})$\\
-$C_{5}:$&$\sd{B \to \sd{C \to D}} \to \sd{\sd{B \to C} \to \sd{B \to D}}$&$(\ref{logic:A2})$\\
-$C_{6}:$&$\sd{B \to C} \to \sd{B \to D}$&$(C_{4}, C_{5}\ref{logic:MP})$\\
-$C_{7}:$&$\sd{B \to D}$&$(C_{1}, C_{6}, \ref{logic:MP})$\\
+$C_{1}:$&$\sd{B \to C}$&$Hyp$\\
+$C_{2}:$&$\sd{C \to D}$&$Hyp$\\
+$C_{3}:$&$\sd{C \to D} \to \sd{ B \to \sd{C \to D}}$&$\ref{logic:A1}$\\
+$C_{4}:$&$\sd{B \to \sd{C \to D}}$&$C_{2}, C_{3}, \ref{logic:MP}$\\
+$C_{5}:$&$\sd{B \to \sd{C \to D}} \to \sd{\sd{B \to C} \to \sd{B \to D}}$&$\ref{logic:A2}$\\
+$C_{6}:$&$\sd{B \to C} \to \sd{B \to D}$&$C_{4}, C_{5}\ref{logic:MP}$\\
+$C_{7}:$&$\sd{B \to D}$&$C_{1}, C_{6}, \ref{logic:MP}$\\
+}
+\thm
+\begin{equation}\label{logic:D2}
+	B \to \sd{C \to D}, C \vdash \sd{B \to D}
+\end{equation}
+\pf\\
+\pftab{
+$C_{1}$&$B \to \sd{C \to D}$&$Hyp$
 }
 \end{document}
