@@ -107,18 +107,18 @@
 	\rom{5}&$A \to C$&\rom{3}, \rom{4}, \ref{logic:MP}\\
 }
 \axm
-\begin{equation}\label{logic:A3}
+\begin{equation}\label{logic:T1}
 	\vdash \sd{\sd{\lnot A} \to \sd{\lnot B}} \to \sd{B \to A}
 \end{equation}
 這個公理是對$\lnot$的定義。\\
 \thm
-\begin{equation}\label{logic:T1}
+\begin{equation}\label{logic:T1MP}
 	\sd{\lnot A} \to \sd{\lnot B} \vdash B \to A
 \end{equation}
 \pf\\
 \pftab{
 	\rom{1}&$\sd{\lnot A} \to \sd{\lnot B}$&前提\\
-	\rom{2}&$\sd{\sd{\lnot A} \to \sd{\lnot B}} \to \sd{B \to A}$&\ref{logic:A3}\\
+	\rom{2}&$\sd{\sd{\lnot A} \to \sd{\lnot B}} \to \sd{B \to A}$&\ref{logic:T1}\\
 	\rom{3}&$B \to A$&\rom{1}, \rom{2}, \ref{logic:MP}\\
 }
 \thm
@@ -128,9 +128,9 @@
 \pf\\
 \pftab{
 	\rom{1}&$\sd{\lnot\lnot A} \to \sd{\sd{\lnot\lnot\lnot\lnot A} \to \sd{\lnot\lnot A}}$&\ref{logic:A1}\\
-	\rom{2}&$\sd{\sd{\lnot\lnot\lnot\lnot A} \to \sd{\lnot\lnot A}} \to \sd{\sd{\lnot A} \to \sd{\lnot\lnot\lnot A}}$&\ref{logic:A3}\\
+	\rom{2}&$\sd{\sd{\lnot\lnot\lnot\lnot A} \to \sd{\lnot\lnot A}} \to \sd{\sd{\lnot A} \to \sd{\lnot\lnot\lnot A}}$&\ref{logic:T1}\\
 	\rom{3}&$\sd{\lnot\lnot A} \to \sd{\sd{\lnot A} \to \sd{\lnot\lnot\lnot A}}$&\rom{1}, \rom{2}, \ref{logic:D1}\\
-	\rom{4}&$\sd{\sd{\lnot A} \to \sd{\lnot\lnot\lnot A}} \to \sd{\sd{\lnot\lnot A} \to A}$&\ref{logic:A3}\\
+	\rom{4}&$\sd{\sd{\lnot A} \to \sd{\lnot\lnot\lnot A}} \to \sd{\sd{\lnot\lnot A} \to A}$&\ref{logic:T1}\\
 	\rom{5}&$\sd{\lnot\lnot A} \to \sd{\sd{\lnot\lnot A} \to A}$&\rom{3}, \rom{4}, \ref{logic:D1}\\
 	\rom{6}&$\sd{\sd{\lnot\lnot A} \to \sd{\lnot\lnot A}} \to \sd{\sd{\lnot\lnot A} \to A}$&\rom{5}, \ref{logic:A2MP}\\
 	\rom{8}&$\sd{\lnot\lnot A} \to \sd{\lnot\lnot A}$&\ref{logic:to_self}\\
@@ -143,11 +143,22 @@
 \pf\\
 \pftab{
 	\rom{1}&$\sd{\lnot\lnot\lnot A} \to \sd{\lnot A}$&\ref{logic:DNe}\\
-	\rom{2}&$\sd{\sd{\lnot\lnot\lnot A} \to \sd{\lnot A}} \to \sd{ A \to \sd{\lnot\lnot A}}$&\ref{logic:A3}\\
-	\rom{3}&$ A \to \sd{\lnot\lnot A}$&\rom{1}, \rom{2}, \ref{logic:MP}\\
+	\rom{3}&$ A \to \sd{\lnot\lnot A}$&\rom{1}, \ref{logic:T1MP}\\
+}
+\begin{equation}\label{logic:T2}
+	\vdash \sd{A \to B} \to \sd{\sd{\lnot B} \to \sd{\lnot A}}
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$\sd{B \to A} \to \sd{\sd{\lnot\lnot B} \to \sd{B \to A}}$&\ref{logic:A1}\\
+	\rom{2}&$\sd{\sd{\lnot\lnot B} \to \sd{B \to A}} \to \sd{\sd{\sd{\lnot\lnot B} \to B} \to \sd{\sd{\lnot\lnot B} \to A}}$&\ref{logic:A2}\\
+	\rom{3}&$\sd{B \to A} \to \sd{\sd{\sd{\lnot\lnot B} \to B} \to \sd{\sd{\lnot\lnot B} \to A}}$&\rom{1}, \rom{2}, \ref{logic:D1}\\
+	\rom{4}&$\sd{\lnot\lnot B} \to B$&\ref{logic:DNe}\\
+	\rom{5}&$\sd{B \to A} \to \sd{\sd{\lnot\lnot B} \to A}$&\rom{3}, \rom{4}, \ref{logic:D2}\\
+
 }
 \thm
-\begin{equation}\label{logic:T2}
+\begin{equation}\label{logic:T2MP}
 	A \to B \vdash \sd{\lnot B} \to \sd{\lnot A}
 \end{equation}
 \pf\\
@@ -165,6 +176,10 @@
 \end{equation}
 \pf\\
 \pftab{
+	\rom{1}&$\sd{\sd{\lnot A} \to A} \to \sd{\sd{\lnot A} \to A}$&\ref{logic:to_self}\\
+	\rom{2}&$\sd{\sd{\sd{\lnot A} \to A} \to \sd{\lnot A}} \to \sd{\sd{\sd{\lnot A} \to A} \to A}$&\rom{1}, \ref{logic:A2MP}\\
+	\rom{3}&$\sd{\lnot A} \to \sd{\sd{\sd{\lnot A} \to A} \to \sd{\lnot A}}$&\ref{logic:A1}\\
+	\rom{4}&$\sd{\lnot A} \to \sd{\sd{\sd{\lnot A} \to A} \to A}$&\rom{2}, \rom{3}, \ref{logic:D1}\\
 }
 \thm
 \begin{equation}\label{logic:A5}
