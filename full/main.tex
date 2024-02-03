@@ -18,6 +18,7 @@
 \newcommand{\prop}{性質：}
 \newcommand{\pf}{證明：}
 \newcommand{\abs}[1]{{\left|#1\right|}}
+\newcommand{\rom}[1]{\romannumeral #1 \relax}
 \newcommand{\pftab}[1]{
 	\begin{tabular}{ >{\raggedright\arraybackslash}p{0.1\textwidth}<{}  >{\centering\arraybackslash}p{0.7\textwidth} >{\raggedleft\arraybackslash(}p{0.2\textwidth}<{)}}
 		#1
@@ -30,7 +31,6 @@
 通常上，「對」會表示為$T$或是$\top$，而「錯」會表達為$F$或是$\bot$。在這篇文章當中，會以$\top$及$\bot$表達。\\
 首先，「公理」是對該話題的預先假設，而「定理」是從假設中推論出來的，而定理會附帶證明。通常，推論會寫成$A,B\vdash C$，意味著以$A, B$為前提推論出$C$。\\
 若是以$\vdash A$表達，則代表除了此定理或公理外，不需要其他前提，就可以推導出$A$。\\
-至於推論與假設代表什麼，我還不知道該如何解釋。\\
 \axm
 \begin{equation}\label{logic:A1}
 	\vdash A \to \sd{B \to A}
@@ -40,14 +40,10 @@
 	\vdash \sd{A \to \sd{B \to C}} \to \sd{\sd{A \to B} \to \sd{A \to C}}
 \end{equation}
 \axm
-\begin{equation}\label{logic:A3}
-	\vdash \sd{\sd{\lnot A} \to \sd{\lnot B}} \to \sd{B \to A}
-\end{equation}
-\axm
 \begin{equation}\label{logic:MP}\tag{MP}
 	\sd{A \to B}, A \vdash B
 \end{equation}
-以上四個公理中，$A,B,C$是任意敘述。以上公理，可以理解成是在對$\to,\lnot$做定義，只要符合以上公理形式的概念，都是可以使用的。\\
+以上三個公理中，$A,B,C$是任意敘述。以上公理，可以理解成是在對$\to$做定義，只要符合以上公理形式的概念，都是可以使用的。\\
 在定理的證明當中，我會以以下格式書寫：\\
 \pftab{
 條目&內容&前提\\
@@ -56,16 +52,35 @@
 …&…&…\\
 }
 \thm
+\begin{equation}\label{logic:A1MP}
+	A \vdash B \to A
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$A$&前提\\
+	\rom{2}&$A \to \sd{ B \to A}$&\ref{logic:A1}\\
+	\rom{3}&$B \to A$&\rom{1}, \rom{2}, \ref{logic:MP}\\
+}
+\thm
+\begin{equation}\label{logic:A2MP}
+	A \to \sd{B \to C} \vdash \sd{A \to B} \to \sd{A \to C}\\
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$A \to \sd{B \to C}$&前提\\
+	\rom{2}&$\sd{A \to \sd{B \to C}} \to \sd{\sd{A \to B} \to \sd{A \to C}}$&\ref{logic:A2}\\
+	\rom{3}&$\sd{A \to B} \to \sd{A \to C}$&\rom{1}, \rom{2}, \ref{logic:MP}\\
+}
+\thm
 \begin{equation}\label{logic:to_self}
 	\vdash A \to A
 \end{equation}
 \pf\\
 \pftab{
-1&$\sd{A \to \sd{\sd{A \to A}\to A}} \to \sd{\sd{A \to \sd{A \to A}} \to \sd{A \to A}}$&\ref{logic:A2}\\
-2&$A \to \sd{\sd{A \to A} \to A}$&\ref{logic:A1}\\
-3&$A \to \sd{A \to A}$&\ref{logic:A1}\\
-4&$\sd{A \to \sd{A \to A}} \to \sd{A \to A}$&1, 2, \ref{logic:MP}\\
-5&$A \to A$&3, 4, \ref{logic:MP}\\
+	\rom{1}&$A \to \sd{\sd{A \to A} \to A}$&\ref{logic:A1}\\
+	\rom{2}&$\sd{A \to \sd{A \to A}} \to \sd{A \to A}$&\rom{1}, \ref{logic:A2MP}\\
+	\rom{3}&$A \to \sd{A \to A}$&\ref{logic:A1}\\
+	\rom{4}&$A \to A$&\rom{2}, \rom{3}, \ref{logic:MP}\\
 }
 \thm
 \begin{equation}\label{logic:D1}
@@ -73,13 +88,11 @@
 \end{equation}
 \pf\\
 \pftab{
-1&$\sd{A \to B}$&$Hyp$\\
-2&$\sd{B \to C}$&$Hyp$\\
-3&$\sd{B \to C} \to \sd{ A \to \sd{B \to C}}$&$\ref{logic:A1}$\\
-4&$\sd{A \to \sd{B \to C}}$&$C_{2}, C_{3}, \ref{logic:MP}$\\
-5&$\sd{A \to \sd{B \to C}} \to \sd{\sd{A \to B} \to \sd{A \to C}}$&$\ref{logic:A2}$\\
-6&$\sd{A \to B} \to \sd{A \to C}$&$C_{4}, C_{5}\ref{logic:MP}$\\
-7&$\sd{A \to C}$&$C_{1}, C_{6}, \ref{logic:MP}$\\
+	\rom{1}&$\sd{A \to B}$&前提\\
+	\rom{2}&$\sd{B \to C}$&前提\\
+	\rom{3}&$A \to \sd{B \to C}$&\rom{2}, \ref{logic:A1MP}\\
+	\rom{4}&$\sd{A \to B} \to \sd{A \to C}$&\rom{3}, \ref{logic:A2MP}\\
+	\rom{5}&$A \to C$&\rom{1}, \rom{4}, \ref{logic:MP}\\
 }
 \thm
 \begin{equation}\label{logic:D2}
@@ -87,13 +100,26 @@
 \end{equation}
 \pf\\
 \pftab{
-1&$A \to \sd{B \to C}$&$Hyp$\\
-2&$B$&$Hyp$\\
-3&$\sd{A \to \sd{B \to C}} \to \sd{\sd{A \to B} \to \sd{A \to C}}$&$\ref{logic:A2}$\\
-4&$\sd{A \to B} \to \sd{A \to C}$&$C_{1}, C_{3}, \ref{logic:MP}$\\
-5&$B \to \sd{A \to B}$&$\ref{logic:A1}$\\
-6&$A \to B$&$C_{2}, C_{5}, \ref{logic:MP}$\\
-7&$A \to C$&$C_{4}, C_{6}, \ref{logic:MP}$\\
+	\rom{1}&$A \to \sd{B \to C}$&前提\\
+	\rom{2}&$B$&前提\\
+	\rom{3}&$\sd{A \to B} \to \sd{A \to C}$&\rom{1}, \ref{logic:A2MP}\\
+	\rom{4}&$A \to B$&\rom{2}, \ref{logic:A1MP}\\
+	\rom{5}&$A \to C$&\rom{3}, \rom{4}, \ref{logic:MP}\\
+}
+\axm
+\begin{equation}\label{logic:A3}
+	\vdash \sd{\sd{\lnot A} \to \sd{\lnot B}} \to \sd{B \to A}
+\end{equation}
+這個公理是對$\lnot$的定義。\\
+\thm
+\begin{equation}\label{logic:T1}
+	\sd{\lnot A} \to \sd{\lnot B} \vdash B \to A
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$\sd{\lnot A} \to \sd{\lnot B}$&前提\\
+	\rom{2}&$\sd{\sd{\lnot A} \to \sd{\lnot B}} \to \sd{B \to A}$&\ref{logic:A3}\\
+	\rom{3}&$B \to A$&\rom{1}, \rom{2}, \ref{logic:MP}\\
 }
 \thm
 \begin{equation}\label{logic:DNe}
@@ -101,15 +127,14 @@
 \end{equation}
 \pf\\
 \pftab{
-1&$\sd{\lnot\lnot A} \to \sd{\sd{\lnot\lnot\lnot\lnot A} \to \sd{\lnot\lnot A}}$&$\ref{logic:A1}$\\
-2&$\sd{\sd{\lnot\lnot\lnot\lnot A} \to \sd{\lnot\lnot A}} \to \sd{\sd{\lnot A} \to \sd{\lnot\lnot\lnot A}}$&$\ref{logic:A3}$\\
-3&$\sd{\lnot\lnot A} \to \sd{\sd{\lnot A} \to \sd{\lnot\lnot\lnot A}}$&$C_{1}, C_{2}, \ref{logic:D1}$\\
-4&$\sd{\sd{\lnot A} \to \sd{\lnot\lnot\lnot A}} \to \sd{\sd{\lnot\lnot A} \to A}$&$\ref{logic:A3}$\\
-5&$\sd{\lnot\lnot A} \to \sd{\sd{\lnot\lnot A} \to A}$&$C_{3}, C_{4}, \ref{logic:D1}$\\
-6&$\sd{\sd{\lnot\lnot A} \to \sd{\sd{\lnot\lnot A} \to A}} \to \sd{\sd{\sd{\lnot\lnot A} \to \sd{\lnot\lnot A}} \to \sd{\sd{\lnot\lnot A} \to A}}$&$\ref{logic:A2}$\\
-7&$\sd{\sd{\lnot\lnot A} \to \sd{\lnot\lnot A}} \to \sd{\sd{\lnot\lnot A} \to A}$&$C_{5}, C_{6}, \ref{logic:MP}$\\
-8&$\sd{\lnot\lnot A} \to \sd{\lnot\lnot A}$&$\ref{logic:to_self}$\\
-9&$\sd{\lnot\lnot A} \to A$&$C_{7}, C_{8}, \ref{logic:MP}$\\
+	\rom{1}&$\sd{\lnot\lnot A} \to \sd{\sd{\lnot\lnot\lnot\lnot A} \to \sd{\lnot\lnot A}}$&\ref{logic:A1}\\
+	\rom{2}&$\sd{\sd{\lnot\lnot\lnot\lnot A} \to \sd{\lnot\lnot A}} \to \sd{\sd{\lnot A} \to \sd{\lnot\lnot\lnot A}}$&\ref{logic:A3}\\
+	\rom{3}&$\sd{\lnot\lnot A} \to \sd{\sd{\lnot A} \to \sd{\lnot\lnot\lnot A}}$&\rom{1}, \rom{2}, \ref{logic:D1}\\
+	\rom{4}&$\sd{\sd{\lnot A} \to \sd{\lnot\lnot\lnot A}} \to \sd{\sd{\lnot\lnot A} \to A}$&\ref{logic:A3}\\
+	\rom{5}&$\sd{\lnot\lnot A} \to \sd{\sd{\lnot\lnot A} \to A}$&\rom{3}, \rom{4}, \ref{logic:D1}\\
+	\rom{6}&$\sd{\sd{\lnot\lnot A} \to \sd{\lnot\lnot A}} \to \sd{\sd{\lnot\lnot A} \to A}$&\rom{5}, \ref{logic:A2MP}\\
+	\rom{8}&$\sd{\lnot\lnot A} \to \sd{\lnot\lnot A}$&\ref{logic:to_self}\\
+	\rom{9}&$\sd{\lnot\lnot A} \to A$&\rom{7}, \rom{8}, \ref{logic:MP}\\
 }
 \thm
 \begin{equation}\label{logic:DNi}
@@ -117,16 +142,38 @@
 \end{equation}
 \pf\\
 \pftab{
-1&$\sd{\lnot\lnot\lnot A} \to \sd{\lnot A}$&$\ref{logic:DNe}$\\
-2&$\sd{\sd{\lnot\lnot\lnot A} \to \sd{\lnot A}} \to \sd{ A \to \sd{\lnot\lnot A}}$&$\ref{logic:A3}$\\
-3&$ A \to \sd{\lnot\lnot A}$&$C_{1}, C_{2}, \ref{logic:MP}$\\
+	\rom{1}&$\sd{\lnot\lnot\lnot A} \to \sd{\lnot A}$&\ref{logic:DNe}\\
+	\rom{2}&$\sd{\sd{\lnot\lnot\lnot A} \to \sd{\lnot A}} \to \sd{ A \to \sd{\lnot\lnot A}}$&\ref{logic:A3}\\
+	\rom{3}&$ A \to \sd{\lnot\lnot A}$&\rom{1}, \rom{2}, \ref{logic:MP}\\
 }
 \thm
-\begin{equation}\label{logic:T1}
-	\sd{\lnot A} \to \sd{\lnot B} \vdash B \to A
+\begin{equation}\label{logic:T2}
+	A \to B \vdash \sd{\lnot B} \to \sd{\lnot A}
 \end{equation}
 \pf\\
 \pftab{
-1&$\sd{\lnot A} \to \sd{\lnot B}$&$Hyp$\\
+	\rom{1}&$A \to B$&前提\\
+	\rom{2}&$\sd{\lnot\lnot A} \to A$&\ref{logic:DNe}\\
+	\rom{3}&$\sd{\lnot\lnot A} \to B$&\rom{1}, \rom{2}, \ref{logic:D1}\\
+	\rom{4}&$B \to \sd{\lnot\lnot B}$&\ref{logic:DNi}\\
+	\rom{5}&$\sd{\lnot\lnot A} \to \sd{\lnot\lnot B}$&\rom{3}, \rom{4}, \ref{logic:D1}\\
+	\rom{6}&$\sd{\lnot B} \to \sd{\lnot A}$&\ref{logic:T1}\\
+}
+\thm
+\begin{equation}\label{logic:A4}
+	\vdash \sd{\sd{\lnot A} \to \sd{\lnot B}} \to \sd{\sd{\sd{\lnot A} \to B} \to A}\\
+\end{equation}
+\pf\\
+\pftab{
+}
+\thm
+\begin{equation}\label{logic:A5}
+	A \to B, \sd{\lnot A} \to B \vdash B
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$A \to B$&前提\\
+	\rom{2}&$\sd{\lnot A} \to B$&前提\\
+	\rom{3}&$ $&\\
 }
 \end{document}
