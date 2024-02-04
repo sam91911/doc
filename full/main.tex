@@ -238,4 +238,142 @@
 	\rom{9}&$B$&\rom{7}, \rom{8}, \ref{logic:A4}\\
 }
 \thm
+\begin{equation}\label{logic:M1}
+	A, \lnot B \vdash \lnot\sd{A \to B}
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$A$&前提\\
+	\rom{2}&$\lnot B$&前提\\
+	\rom{3}&$\sd{A \to B} \to \sd{A \to B}$&\ref{logic:to_self}\\
+	\rom{4}&$\sd{\sd{A \to B} \to A} \to \sd{\sd{A \to B} \to B}$&\rom{3}, \ref{logic:A2MP}\\
+	\rom{5}&$\sd{A \to B} \to A$&\rom{1}, \ref{logic:A1MP}\\
+	\rom{6}&$\sd{A \to B} \to B$&\rom{4}, \rom{5}, \ref{logic:MP}\\
+	\rom{7}&$\sd{\lnot B} \to \sd{\lnot \sd{A \to B}}$&\rom{6}, \ref{logic:T2MP}\\
+	\rom{8}&$\lnot \sd{A \to B}$&\rom{2}, \rom{7}, \ref{logic:MP}\\
+}
+\thm
+\begin{equation}\label{logic:M2}
+	\lnot \sd{A \to B} \vdash \lnot B
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$\lnot \sd{A \to B}$&前提\\
+	\rom{2}&$B \to \sd{A \to B}$&\ref{logic:A1}\\
+	\rom{3}&$\sd{\lnot \sd{A \to B}} \to \sd{\lnot B}$&\rom{2}, \ref{logic:T2MP}\\
+	\rom{4}&$\lnot B$&\rom{1}, \rom{3}, \ref{logic:MP}\\
+}
+\thm
+\begin{equation}\label{logic:M3}
+	\lnot \sd{A \to B} \vdash A
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$\lnot \sd{A \to B}$&前提\\
+	\rom{2}&$\sd{\lnot A} \to \sd{\sd{\lnot B} \to \sd{\lnot A}}$&\ref{logic:A1}\\
+	\rom{3}&$\sd{\sd{\lnot B} \to \sd{\lnot A}} \to \sd{A \to B}$&\ref{logic:T1}\\
+	\rom{4}&$\sd{\lnot A} \to \sd{A \to B}$&\rom{2}, \rom{3}, \ref{logic:D1}\\
+	\rom{5}&$\sd{\lnot \sd{A \to B}} \to \sd{\lnot\lnot A}$&\rom{4}, \ref{logic:T2MP}\\
+	\rom{6}&$\sd{\lnot\lnot A}$&\rom{1}, \rom{5}, \ref{logic:MP}\\
+	\rom{7}&$\sd{\lnot\lnot A} \to A$&\ref{logic:DNe}\\
+	\rom{8}&$A$&\rom{6}, \rom{7}, \ref{logic:MP}\\
+}
+\thm
+\begin{equation}\label{logic:C1}
+	A \to \sd{\lnot B}, B \vdash \lnot A
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$ A \to \sd{\lnot B}$&前提\\
+	\rom{2}&$ B $&前提\\
+	\rom{3}&$ B \to \sd{\lnot\lnot B}$& \ref{logic:DNi}\\
+	\rom{4}&$ \sd{\lnot\lnot B} \to \sd{\lnot A}$&\rom{1}, \ref{logic:T2MP}\\
+	\rom{5}&$B \to \sd{\lnot A}$&\rom{3}, \rom{4}, \ref{logic:D1}\\
+	\rom{6}&$\lnot A$&\rom{2}, \rom{5}, \ref{logic:MP}\\
+}
+\thm
+\begin{equation}\label{logic:C2}
+	\sd{\lnot A} \to B, \lnot B \vdash A
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$\sd{\lnot A} \to B$&前提\\
+	\rom{2}&$\lnot B$&前提\\
+	\rom{3}&$\sd{\lnot B} \to \sd{\lnot\lnot A}$&\rom{1}, \ref{logic:T2MP}\\
+	\rom{4}&$\sd{\lnot\lnot A} \to A$&\ref{logic:DNe}\\
+	\rom{5}&$\lnot\lnot A$&\rom{2}, \rom{3}, \ref{logic:MP}\\
+	\rom{6}&$A$&\rom{4}, \rom{5}, \ref{logic:MP}\\
+}
+\df\\
+\begin{equation}\label{logic:and}
+	A \land B := \lnot \sd{A \to \sd{\lnot B}}
+\end{equation}
+這種$:=$符號稱為定義，例如$A := B$就是將$A$定義為$B$。\\
+定義也可以看成是一種縮寫，將一個概念包裝成新的符號。\\
+\thm
+\begin{equation}\label{logic:sym_and}
+	\vdash \sd{A \land B} \to \sd{B \land A}
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$\sd{\sd{\lnot\lnot A} \to \sd{\lnot B}} \to \sd{A \to \sd{\sd{\lnot\lnot A} \to \sd{\lnot B}}}$&\ref{logic:A1}\\
+	\rom{2}&$\sd{A \to \sd{\sd{\lnot\lnot A} \to \sd{\lnot B}}} \to \sd{\sd{A \to \sd{\lnot\lnot A}} \to \sd{A \to \sd{\lnot B}}}$&\ref{logic:A2}\\
+	\rom{3}&$\sd{\sd{\lnot\lnot A} \to \sd{\lnot B}} \to \sd{\sd{A \to \sd{\lnot\lnot A}} \to \sd{A \to \sd{\lnot B}}}$&\rom{1}, \rom{2}, \ref{logic:D1}\\
+	\rom{4}&$A \to \sd{\lnot\lnot A}$&\ref{logic:DNi}\\
+	\rom{5}&$\sd{\sd{\lnot\lnot A} \to \sd{\lnot B}} \to \sd{ A \to \sd{\lnot B}}$&\rom{3}, \rom{4}, \ref{logic:D2}\\
+	\rom{6}&$\sd{B \to \sd{\lnot A}} \to \sd{\sd{\lnot\lnot A} \to \sd{\lnot B}}$&\ref{logic:T2}\\
+	\rom{7}&$\sd{B \to \sd{\lnot A}} \to \sd{A \to \sd{\lnot B}}$&\rom{5}, \rom{6}, \ref{logic:D1}\\
+	\rom{8}&$\sd{\lnot \sd{A \to \sd{\lnot B}}} \to \sd{\lnot \sd{ B \to \sd{\lnot A}}}$&\rom{7}, \ref{logic:T2MP}\\
+	\rom{9}&$\sd{A \land B} \to \sd{B \land A}$&\rom{8}, \ref{logic:and}\\
+}
+\thm
+\begin{equation}\label{logic:M1_and1}
+	\vdash \sd{A \to \sd{B \to C}} \to \sd{\sd{A \land B} \to C}
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$\sd{B \to C} \to \sd{\sd{\lnot C} \to \sd{\lnot B}}$&\ref{logic:T2}\\
+	\rom{2}&$A \to \sd{\sd{B \to C} \to \sd{\sd{\lnot C} \to \sd{\lnot B}}}$&\rom{1}, \ref{logic:A1MP}\\
+	\rom{3}&$\sd{A \to \sd{B \to C}} \to \sd{ A \to \sd{\sd{\lnot C} \to \sd{\lnot B}}}$&\rom{2}, \ref{logic:A2MP}\\
+	\rom{4}&$\sd{ A \to \sd{\sd{\lnot C} \to \sd{\lnot B}}} \to \sd{\sd{ A \to \sd{\lnot C}} \to \sd{A \to \sd{\lnot B}}}$& \ref{logic:A2}\\
+	\rom{5}&$\sd{A \to \sd{B \to C}} \to \sd{\sd{ A \to \sd{\lnot C}} \to \sd{A \to \sd{\lnot B}}}$&\rom{3}, \rom{4}, \ref{logic:D1}\\
+	\rom{6}&$\sd{\sd{ A \to \sd{\lnot C}} \to \sd{A \to \sd{\lnot B}}} \to \sd{\sd{\lnot C} \to \sd{\sd{ A \to \sd{\lnot C}} \to \sd{A \to \sd{\lnot B}}}}$&\ref{logic:A1}\\
+	\rom{7}&$\sd{A \to \sd{B \to C}} \to \sd{\sd{\lnot C} \to \sd{\sd{ A \to \sd{\lnot C}} \to \sd{A \to \sd{\lnot B}}}}$&\rom{5}, \rom{6}, \ref{logic:D1}\\
+	\rom{8}&$\sd{\sd{\lnot C} \to \sd{\sd{ A \to \sd{\lnot C}} \to \sd{A \to \sd{\lnot B}}}} \to \sd{\sd{\sd{\lnot C} \to \sd{ A \to \sd{\lnot C}}} \to \sd{\sd{\lnot C} \to \sd{A \to \sd{\lnot B}}}}$&\ref{logic:A2}\\
+	\rom{9}&$\sd{A \to \sd{B \to C}} \to \sd{\sd{\sd{\lnot C} \to \sd{ A \to \sd{\lnot C}}} \to \sd{\sd{\lnot C} \to \sd{A \to \sd{\lnot B}}}}$&\rom{7}, \rom{8}, \ref{logic:D1}\\
+	\rom{10}&$\sd{\lnot C} \to \sd{ A \to \sd{\lnot C}}$&\ref{logic:A1}\\
+	\rom{11}&$\sd{A \to \sd{B \to C}} \to \sd{\sd{\lnot C} \to \sd{A \to \sd{\lnot B}}}$&\rom{9}, \rom{10}, \ref{logic:D2}\\
+	\rom{12}&$\sd{A \to \sd{\lnot B}} \to \sd{\lnot\lnot \sd{A \to \sd{\lnot B}}}$&\ref{logic:DNi}\\
+	\rom{13}&$\sd{\lnot C} \to \sd{\sd{A \to \sd{\lnot B}} \to \sd{\lnot\lnot \sd{A \to \sd{\lnot B}}}}$&\rom{12}, \ref{logic:A1MP}\\
+	\rom{14}&$\sd{\sd{\lnot C} \to \sd{A \to \sd{\lnot B}}} \to \sd{\sd{\lnot C} \to \sd{\lnot\lnot \sd{A \to \sd{\lnot B}}}}$&\rom{13}, \ref{logic:A2MP}\\
+	\rom{15}&$\sd{A \to \sd{B \to C}} \to \sd{\sd{\lnot C} \to \sd{\lnot\lnot \sd{A \to \sd{\lnot B}}}}$&\rom{11}, \rom{14}, \ref{logic:D1}\\
+	\rom{16}&$\sd{\sd{\lnot C} \to \sd{\lnot\lnot \sd{A \to \sd{\lnot B}}}} \to \sd{\sd{\lnot \sd{A \to \sd{\lnot B}}} \to C}$&\ref{logic:T1}\\
+	\rom{17}&$\sd{A \to \sd{B \to C}} \to \sd{\sd{\lnot \sd{A \to \sd{\lnot B}}} \to C}$&\rom{15}, \rom{16}, \ref{logic:D1}\\
+	\rom{18}&$\sd{A \to \sd{B \to C}} \to \sd{\sd{A \land B} \to C}$&\rom{17}, \ref{logic:and}\\
+}
+\thm
+\begin{equation}\label{logic:M1_and2}
+	\vdash \sd{\sd{A \land B} \to C} \to \sd{A \to \sd{B \to C}}
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$C \to \sd{\lnot\lnot C}$&\ref{logic:DNi}\\
+	\rom{2}&$\sd{\lnot \sd{A \to \sd{\lnot B}}} \to \sd{C \to \sd{\lnot\lnot C}}$&\rom{1}, \ref{logic:A1MP}\\
+	\rom{3}&$\sd{\sd{\lnot \sd{A \to \sd{\lnot B}}} \to C} \to \sd{\sd{\lnot \sd{A \to \sd{\lnot B}}} \to \sd{\lnot\lnot C}}$&\rom{2}, \ref{logic:A2MP}\\
+	\rom{4}&$\sd{\sd{A \land B} \to C} \to \sd{\sd{\lnot \sd{A \to \sd{\lnot B}}} \to \sd{\lnot\lnot C}}$&\rom{3}, \ref{logic:and}\\
+	\rom{5}&$\sd{\sd{\lnot \sd{A \to \sd{\lnot B}}} \to \sd{\lnot\lnot C}} \to \sd{\sd{\lnot C} \to \sd{A \to \sd{\lnot B}}}$&\ref{logic:T1}\\
+	\rom{6}&$\sd{\sd{A \land B} \to C} \to \sd{\sd{\lnot C} \to \sd{A \to \sd{\lnot B}}}$&\rom{4}, \rom{5}, \ref{logic:D1}\\
+	\rom{7}&$\sd{\sd{\lnot C} \to \sd{A \to \sd{\lnot B}}} \to \sd{\sd{\sd{\lnot C} \to A} \to \sd{\sd{\lnot C} \to \sd{\lnot B}}}$&\ref{logic:A2}\\
+	\rom{8}&$\sd{\sd{A \land B} \to C} \to \sd{\sd{\sd{\lnot C} \to A} \to \sd{\sd{\lnot C} \to \sd{\lnot B}}}$&\rom{6}, \rom{7}, \ref{logic:D1}\\
+	\rom{9}&$\sd{\sd{\sd{\lnot C} \to A} \to \sd{\sd{\lnot C} \to \sd{\lnot B}}} \to \sd{ A \to \sd{\sd{\sd{\lnot C} \to A} \to \sd{\sd{\lnot C} \to \sd{\lnot B}}}}$&\ref{logic:A1}\\
+	\rom{10}&$\sd{\sd{A \land B} \to C} \to \sd{ A \to \sd{\sd{\sd{\lnot C} \to A} \to \sd{\sd{\lnot C} \to \sd{\lnot B}}}}$&\rom{8}, \rom{9}, \ref{logic:D1}\\
+	\rom{11}&$\sd{ A \to \sd{\sd{\sd{\lnot C} \to A} \to \sd{\sd{\lnot C} \to \sd{\lnot B}}}} \to \sd{\sd{\sd{A \to \sd{\lnot C} \to A}} \to \sd{A \to \sd{\sd{\lnot C} \to \sd{\lnot B}}}}$&\ref{logic:A2}\\
+	\rom{12}&$A \to \sd{\sd{\lnot C} \to A}$&\ref{logic:A1}\\
+	\rom{13}&$\sd{ A \to \sd{\sd{\sd{\lnot C} \to A} \to \sd{\sd{\lnot C} \to \sd{\lnot B}}}} \to \sd{A \to \sd{\sd{\lnot C} \to \sd{\lnot B}}}$&\rom{11}, \rom{12}, \ref{logic:D2}\\
+	\rom{14}&$\sd{\sd{A \land B} \to C} \to \sd{A \to \sd{\sd{\lnot C} \to \sd{\lnot B}}}$&\rom{10}, \rom{13}, \ref{logic:D1}\\
+	\rom{15}&$\sd{\sd{\lnot C} \to \sd{\lnot B}} \to \sd{B \to C}$&\ref{logic:T1}\\
+	\rom{16}&$A \to \sd{\sd{\lnot C} \to \sd{\lnot B}} \to \sd{B \to C}$&\rom{15}, \ref{logic:A1MP}\\
+	\rom{17}&$\sd{A \to \sd{\sd{\lnot C} \to \sd{\lnot B}}} \to \sd{A \to \sd{B \to C}}$&\rom{16}, \ref{logic:A2MP}\\
+	\rom{18}&$\sd{\sd{A \land B} \to C} \to \sd{A \to \sd{B \to C}}$&\rom{14}, \rom{17}, \ref{logic:D1}\\
+}
 \end{document}
