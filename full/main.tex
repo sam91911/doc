@@ -327,7 +327,17 @@
 	\rom{9}&$\sd{A \land B} \to \sd{B \land A}$&\rom{8}, \ref{logic:and}\\
 }
 \thm
-\begin{equation}\label{logic:M1_and1}
+\begin{equation}\label{logic:sym_andMP}
+	A \land B \vdash B \land A
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$A \land B$&前提\\
+	\rom{2}&$\sd{A \land B} \to \sd{B \land A}$&\ref{logic:sym_and}\\
+	\rom{3}&$B \land A$&\rom{1}, \rom{2}, \ref{logic:MP}\\
+}
+\thm
+\begin{equation}\label{logic:M1_and}
 	\vdash \sd{A \to \sd{B \to C}} \to \sd{\sd{A \land B} \to C}
 \end{equation}
 \pf\\
@@ -352,7 +362,7 @@
 	\rom{18}&$\sd{A \to \sd{B \to C}} \to \sd{\sd{A \land B} \to C}$&\rom{17}, \ref{logic:and}\\
 }
 \thm
-\begin{equation}\label{logic:M1_and2}
+\begin{equation}\label{logic:M2_and}
 	\vdash \sd{\sd{A \land B} \to C} \to \sd{A \to \sd{B \to C}}
 \end{equation}
 \pf\\
@@ -376,4 +386,101 @@
 	\rom{17}&$\sd{A \to \sd{\sd{\lnot C} \to \sd{\lnot B}}} \to \sd{A \to \sd{B \to C}}$&\rom{16}, \ref{logic:A2MP}\\
 	\rom{18}&$\sd{\sd{A \land B} \to C} \to \sd{A \to \sd{B \to C}}$&\rom{14}, \rom{17}, \ref{logic:D1}\\
 }
+\thm
+\begin{equation}\label{logic:M3_and}
+	\vdash \sd{A \land B} \to A
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$\sd{A \to \sd{B \to A}} \to \sd{\sd{A \land B} \to A}$&\ref{logic:M2_and}\\
+	\rom{2}&$A \to \sd{B \to A}$&\ref{logic:A1}\\
+	\rom{3}&$\sd{A \land B} \to A$&\rom{1}, \rom{2}, \ref{logic:MP}\\
+}
+\thm
+\begin{equation}\label{logic:M4_and}
+	\vdash A \to \sd{B \to \sd{A \land B}}
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$\sd{\sd{A \land B} \to \sd{A \land B}} \to \sd{A \to \sd{B \to \sd{A \land B}}}$&\ref{logic:M1_and}\\
+	\rom{2}&$\sd{\sd{A \land B} \to \sd{A \land B}}$&\ref{logic:to_self}\\
+	\rom{3}&$A \to \sd{B \to \sd{A \land B}}$&\rom{1}, \rom{2}, \ref{logic:MP}\\
+}
+\thm
+\begin{equation}\label{logic:asso_and1}
+	\vdash \sd{A \land \sd{B \land C}} \to \sd{\sd{A \land B} \land C}
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$\sd{A \land B} \to \sd{ C \to \sd{\sd{A \land B} \land C}}$&\ref{logic:M4_and}\\
+	\rom{2}&$\sd{\sd{A \land B} \to \sd{ C \to \sd{\sd{A \land B} \land C}}} \to \sd{A \to \sd{B \to \sd{ C \to \sd{\sd{A \land B} \land C}}}}$&\ref{logic:M2_and}\\
+	\rom{3}&$A \to \sd{B \to \sd{ C \to \sd{\sd{A \land B} \land C}}}$&\rom{1}, \rom{2}, \ref{logic:MP}\\
+	\rom{4}&$\sd{B \to \sd{ C \to \sd{\sd{A \land B} \land C}}} \to \sd{\sd{B \land C} \to \sd{\sd{A \land B} \land C}}$&\ref{logic:M1_and}\\
+	\rom{5}&$A \to \sd{\sd{B \land C} \to \sd{\sd{A \land B} \land C}}$&\rom{3}, \rom{4}, \ref{logic:D1}\\
+	\rom{6}&$\sd{A \to \sd{\sd{B \land C} \to \sd{\sd{A \land B} \land C}}} \to \sd{\sd{A \land \sd{B \land C}} \to \sd{\sd{A \land B} \land C}}$&\ref{logic:M1_and}\\
+	\rom{7}&$\sd{A \land \sd{B \land C}} \to \sd{\sd{A \land B} \land C}$&\rom{5}, \rom{6}, \ref{logic:MP}\\
+}
+\thm
+\begin{equation}\label{logic:asso_and2}
+	\vdash \sd{\sd{A \land B} \land C} \to \sd{A \land \sd{B \land C}}
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$A \to \sd{\sd{B \land C} \to \sd{A \land \sd{B \land C}}}$&\ref{logic:M4_and}\\
+	\rom{2}&$\sd{\sd{B \land C} \to \sd{A \land \sd{B \land C}}} \to \sd{B \to \sd{C \to \sd{A \land \sd{B \land C}}}}$&\ref{logic:M2_and}\\
+	\rom{3}&$A \to \sd{B \to \sd{C \to \sd{A \land \sd{B \land C}}}}$&\rom{1}, \rom{2}, \ref{logic:D1}\\
+	\rom{4}&$\sd{A \to \sd{B \to \sd{C \to \sd{A \land \sd{B \land C}}}}} \to \sd{\sd{A \land B}\to \sd{C \to \sd{A \land \sd{B \land C}}}}$&\ref{logic:M1_and}\\
+	\rom{5}&$\sd{A \land B}\to \sd{C \to \sd{A \land \sd{B \land C}}}$&\rom{3}, \rom{4}, \ref{logic:MP}\\
+	\rom{6}&$\sd{\sd{A \land B}\to \sd{C \to \sd{A \land \sd{B \land C}}}} \to \sd{\sd{\sd{A \land B} \land C}\to \sd{A \land \sd{B \land C}}}$&\ref{logic:M1_and}\\
+	\rom{7}&$\sd{\sd{A \land B} \land C} \to \sd{A \land \sd{B \land C}}$&\rom{5}, \rom{6}, \ref{logic:MP}\\
+}
+\df\\
+\begin{equation}\label{logic:or}
+	A \lor B := \sd{\lnot A} \to B
+\end{equation}
+\thm
+\begin{equation}\label{logic:sym_or}
+	\vdash \sd{A \lor B} \to \sd{B \lor A}
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$B \to \sd{\lnot\lnot B}$&\ref{logic:DNi}\\
+	\rom{2}&$\sd{\lnot A} \to \sd{B \to \sd{\lnot\lnot B}}$&\rom{1}, \ref{logic:A1MP}\\
+	\rom{3}&$\sd{\sd{\lnot A} \to B} \to \sd{\sd{\lnot A} \to \sd{\lnot\lnot B}}$&\rom{2}, \ref{logic:A2MP}\\
+	\rom{4}&$\sd{\sd{\lnot A} \to \sd{\lnot\lnot B}} \to \sd{\sd{\lnot B} \to A}$&\ref{logic:T1}\\
+	\rom{5}&$\sd{\sd{\lnot A} \to B} \to \sd{\sd{\lnot B} \to A}$&\rom{3}, \rom{4}, \ref{logic:D1}\\
+	\rom{6}&$\sd{A \lor B} \to \sd{B \lor A}$&\rom{5}, \ref{logic:or}\\
+}
+\thm
+\begin{equation}\label{logic:M1_or}
+	\vdash A \to \sd{A \lor B}
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$A \to \sd{\sd{\lnot B} \to A}$&\ref{logic:A1}\\
+	\rom{2}&$A \to \sd{B \lor A}$&\rom{1}, \ref{logic:or}\\
+	\rom{3}&$\sd{B \lor A} \to \sd{A \lor B}$&\ref{logic:sym_or}\\
+	\rom{4}&$A \to \sd{A \lor B}$&\rom{2}, \rom{3}, \ref{logic:D1}\\
+}
+\thm
+\begin{equation}\label{logic:asso_or1}
+	\vdash \sd{A \lor \sd{B \lor C}} \to \sd{\sd{A \lor B} \lor C}
+\end{equation}
+\pf\\
+\pftab{
+	\rom{1}&$B \to \sd{\lnot\lnot B}$&\ref{logic:DNi}\\
+}
+\section{set 集合}
+在集合當中，引入了兩個新的符號$\in, =$，及一個概念$S$(set)。\\
+以下是關於這些的公理：\\
+\axm\\
+\begin{equation}\label{set:A1}
+	\vdash \sd{A = B} \leftrightarrow \sd{\forall x}\md{\sd{A \in x} \leftrightarrow \sd{B \in x}}
+\end{equation}
+\axm\\
+\begin{equation}\label{set:A2}
+	\vdash \sd{A = B} \leftrightarrow \sd{\forall x}\md{\sd{x \in A} \leftrightarrow \sd{x \in B}}
+\end{equation}
+
+
 \end{document}
